@@ -5,9 +5,13 @@ public class Main {
         LL list = new LL();
         list.addAtEnd(10);
         list.addAtBeginning(20);
+        list.addAtEnd(40);
         list.print();
-        System.out.println('\n'+list.getSize());
-        int d = list.removeFromEnd();
-        System.out.println(d);
+        System.out.println();
+//        System.out.println('\n'+list.getSize());
+//        int d = list.removeFromEnd();
+//        list.addAtIndex(600,3);
+        list.reverse1();
+        list.print();
     }
 }
