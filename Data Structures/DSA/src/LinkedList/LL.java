@@ -194,5 +194,22 @@ public class LL {
             return removedData;
         }
     }
+
+//    K-th element from the end ,the end element index is 0
+    public int kElementFromEnd(int k){
+//        slow fast pointer maintaining a distance of k;
+         Node slow  = head;
+         Node fast = head;
+
+         for (int i=0;i<k;i++){
+             fast = fast.next;
+         }
+         while(fast.next!=null){
+             fast = fast.next;
+             slow = slow.next;
+         }
+
+         return slow.data;
+    }
 }
 

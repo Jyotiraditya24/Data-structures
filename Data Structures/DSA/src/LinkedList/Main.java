@@ -11,7 +11,9 @@ public class Main {
 //        System.out.println('\n'+list.getSize());
 //        int d = list.removeFromEnd();
 //        list.addAtIndex(600,3);
-        list.reverse1();
-        list.print();
+//        list.reverse1();
+//        list.print();
+
+        System.out.println(list.kElementFromEnd(0));
     }
 }
