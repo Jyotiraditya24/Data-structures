@@ -211,5 +211,61 @@ public class LL {
 
          return slow.data;
     }
+
+    public int middleOfLinkedList(){
+        Node slow = this.head;
+        Node fast = this.head;
+
+//        if no linked list
+        if(head == null ){
+            return -1;
+        }
+
+//        if size is one no middle
+        if(head.next == null){
+            return -1;
+        }
+
+//        if size 2 then also  no middle
+        if (head.next.next == null){
+            return -1;
+        }
+
+//        minimum lenght 3
+//        while(fast != null && fast.next!=null){
+//            fast = fast.next.next;
+//            slow = slow.next;
+//        }
+//        OR
+
+//        IF DOING THIS DONOT CHECK THE 3 CONDITIONS ABOVE
+
+        while (fast.next!=null && fast.next.next!=null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        return slow.data;
+    }
+    public void deleteDuplicates() {
+        if(this.head == null){
+            return;
+        }
+        if(this.head.next == null){
+            return;
+        }
+        Node slow = head;
+        Node fast = head.next;
+
+        while(fast!= null){
+            if(slow.data == fast.data){
+                slow.next = fast.next;
+            }else {
+                slow = slow.next;
+            }
+            fast = fast.next;
+        }
+
+    }
 }
 
