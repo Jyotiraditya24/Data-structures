@@ -5,58 +5,47 @@ public class LL {
     private Node tail;
     private int size;
 
-    static private class Node {
+    // Node class for LinkedList
+    private static class Node {
         int data;
         Node next;
 
         public Node(int data) {
             this.data = data;
         }
-
-        public Node(Node next) {
-            this.next = next;
-        }
     }
 
+    // Constructor to initialize LinkedList
     public LL() {
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
+    // Add a new node at the end of the LinkedList
     public void addAtEnd(int data) {
-        Node temp = head;
         Node newNode = new Node(data);
-        if (temp == null) {
+        if (head == null) {
             head = newNode;
-            this.size++;
-            this.tail = newNode;
-            return;
-        }
-        while (temp.next != null) {
-            temp = temp.next;
-        }
-        newNode.next = null;
-        temp.next = newNode;
-        this.size++;
-        this.tail = newNode;
-    }
-
-    public void addAtBeginning(int data) {
-        Node temp = head;
-        Node newNode = new Node(data);
-        if (temp == null) {
-            this.head = newNode;
-            newNode.next = null;
-            this.size++;
-            this.tail = newNode;
         } else {
-            newNode.next = this.head;
-            this.head = newNode;
-            this.size++;
+            tail.next = newNode;
         }
+        tail = newNode; // Update tail to the new node
+        size++; // Increment size
     }
 
+    // Add a new node at the beginning of the LinkedList
+    public void addAtBeginning(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            tail = newNode; // Update tail when adding the first node
+        }
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    // Print the elements of the LinkedList
     public void print() {
         Node temp = head;
         System.out.print("START->");
@@ -67,42 +56,38 @@ public class LL {
         System.out.print("END");
     }
 
+    // Get the size of the LinkedList
     public int getSize() {
         return size;
     }
 
+    // Remove the last node from the LinkedList
     public int removeFromEnd() {
-        Node temp = head;
-        if (temp == null) {
+        if (head == null) {
             return Integer.MIN_VALUE;
         }
-        if (temp.next == null) {
-            this.head = null;
-            this.size = 0;
-            this.tail = null;
-            return temp.data;
+        int removedData;
+        if (head == tail) {
+            removedData = head.data;
+            head = tail = null;
+        } else {
+            Node temp = head;
+            while (temp.next != tail) {
+                temp = temp.next;
+            }
+            removedData = tail.data;
+            temp.next = null;
+            tail = temp;
         }
-        while (temp.next.next != null) {
-            temp = temp.next;
-        }
-        int removedValue = temp.next.data;
-        temp.next = null;
-        this.size--;
-        tail = temp;
-        return removedValue;
+        size--;
+        return removedData;
     }
 
+    // Get the data of the node at a given index in the LinkedList
     public int getNodeData(int index) {
-        if (head == null) {
-            System.out.println("No LinkedList Available");
-            return Integer.MIN_VALUE;
+        if (index < 0 || index >= size || head == null) {
+            throw new IndexOutOfBoundsException("Invalid index");
         }
-
-        if (index < 0 || index >= size) {
-            System.out.println("OUT OF BOUNDS");
-            return Integer.MIN_VALUE;
-        }
-
         Node temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp.next;
@@ -110,162 +95,127 @@ public class LL {
         return temp.data;
     }
 
+    // Add a new node at a specific index in the LinkedList
     public void addAtIndex(int data, int index) {
-        if (head == null && index != 0) {
-            System.out.println("CANNOT ADD AT INDEX" + index + "When null");
-            return;
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Invalid index");
         }
         if (index == 0) {
             addAtBeginning(data);
-            return;
-        }
-        if (index == size + 1) {
+        } else if (index == size) {
             addAtEnd(data);
-            return;
-        }
-        if (index > size || index < 0) { // Invalid index
-            System.out.println("INVALID INDEX: " + index);
-            return;
-        }
-        Node temp1 = head;
-
-        for (int i = 0; i < index - 1; i++) {
-            temp1 = temp1.next;
-        }
-
-        Node node = new Node(data);
-        node.next = temp1.next;
-        temp1.next = node;
-        this.size++;
-    }
-
-    public void reverse1() {
-        if (head == null || head.next == null) {
-            System.out.println("INVALID: CANNOT REVERSE EMPTY LIST OR LIST WITH ONLY ONE ELEMENT");
-            return;
-        }
-        Node temp1 = head.next;
-        Node temp2 = head;
-        Node temp3 = null;
-
-        while (temp1 != null) {
-            temp2.next = temp3;
-//                temp1.next = temp2;
-            temp3 = temp2;
-            temp2 = temp1;
-            temp1 = temp1.next;
-        }
-        temp2.next = temp3;
-        head = temp2;
-
-    }
-
-    public int removeAtFirst() {
-        if (head == null) {
-            return Integer.MIN_VALUE;
-        }
-        if (head.next == null) {
-            int removedData = head.data;
-            this.head = this.tail = null;
-            size--;
-            return removedData;
-        }
-        int removedData = head.data;
-        head = head.next;
-        this.size--;
-        return removedData;
-    }
-
-    public int removeAtIndex(int index) {
-        if (index < 0 || index >= size) {
-            return Integer.MIN_VALUE;
-        } else if (index == 0) {
-            return removeAtFirst();
-        } else if (index == size - 1) {
-            return removeFromEnd();
         } else {
+            Node newNode = new Node(data);
             Node temp = head;
             for (int i = 0; i < index - 1; i++) {
                 temp = temp.next;
             }
-            int removedData = temp.next.data;
-            temp.next = temp.next.next;
-            size--;
-            return removedData;
+            newNode.next = temp.next;
+            temp.next = newNode;
+            size++;
         }
     }
 
-//    K-th element from the end ,the end element index is 0
-    public int kElementFromEnd(int k){
-//        slow fast pointer maintaining a distance of k;
-         Node slow  = head;
-         Node fast = head;
-
-         for (int i=0;i<k;i++){
-             fast = fast.next;
-         }
-         while(fast.next!=null){
-             fast = fast.next;
-             slow = slow.next;
-         }
-
-         return slow.data;
+    // Reverse the LinkedList
+    public void reverse() {
+        if (head == null || head.next == null) {
+            return;
+        }
+        Node prev = null;
+        Node current = head;
+        Node next;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        tail = head;
+        head = prev;
     }
 
-    public int middleOfLinkedList(){
-        Node slow = this.head;
-        Node fast = this.head;
-
-//        if no linked list
-        if(head == null ){
-            return -1;
+    // Remove the first node from the LinkedList
+    public int removeAtFirst() {
+        if (head == null) {
+            return Integer.MIN_VALUE;
         }
-
-//        if size is one no middle
-        if(head.next == null){
-            return -1;
+        int removedData = head.data;
+        head = head.next;
+        if (head == null) {
+            tail = null;
         }
+        size--;
+        return removedData;
+    }
 
-//        if size 2 then also  no middle
-        if (head.next.next == null){
-            return -1;
+    // Remove the node at a specific index from the LinkedList
+    public int removeAtIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index");
         }
+        if (index == 0) {
+            return removeAtFirst();
+        }
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++) {
+            temp = temp.next;
+        }
+        int removedData = temp.next.data;
+        temp.next = temp.next.next;
+        if (temp.next == null) {
+            tail = temp;
+        }
+        size--;
+        return removedData;
+    }
 
-//        minimum lenght 3
-//        while(fast != null && fast.next!=null){
-//            fast = fast.next.next;
-//            slow = slow.next;
-//        }
-//        OR
+    // Get the data of the k-th element from the end of the LinkedList
+    public int kElementFromEnd(int k) {
+        if (k < 0 || k >= size) {
+            throw new IllegalArgumentException("Invalid k");
+        }
+        Node slow = head;
+        Node fast = head;
+        for (int i = 0; i < k; i++) {
+            fast = fast.next;
+        }
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow.data;
+    }
 
-//        IF DOING THIS DONOT CHECK THE 3 CONDITIONS ABOVE
-
-        while (fast.next!=null && fast.next.next!=null){
+    // Get the data of the middle element of the LinkedList
+    public int middleOfLinkedList() {
+        if (head == null || head.next == null) {
+            throw new IllegalStateException("List is empty or has only one element");
+        }
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
         }
-
         return slow.data;
     }
+    // Delete duplicate nodes from the LinkedList
     public void deleteDuplicates() {
-        if(this.head == null){
+        if (head == null || head.next == null) {
             return;
         }
-        if(this.head.next == null){
-            return;
-        }
-        Node slow = head;
-        Node fast = head.next;
-
-        while(fast!= null){
-            if(slow.data == fast.data){
-                slow.next = fast.next;
-            }else {
-                slow = slow.next;
+        Node current = head;
+        while (current != null) {
+            Node runner = current;
+            while (runner.next != null) {
+                if (current.data == runner.next.data) {
+                    runner.next = runner.next.next;
+                } else {
+                    runner = runner.next;
+                }
             }
-            fast = fast.next;
+            current = current.next;
         }
-
     }
-}
 
+}
