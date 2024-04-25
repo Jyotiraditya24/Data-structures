@@ -10,6 +10,9 @@ public class LL {
         int data;
         Node next;
 
+        public Node(){
+
+        }
         public Node(int data) {
             this.data = data;
         }
@@ -217,5 +220,66 @@ public class LL {
             current = current.next;
         }
     }
+
+//    public void mergeSort(){
+//        mergeSort(this.head,this.tail);
+//    }
+//    private Node mergeSort(Node head,Node tail){
+//       Node mid = findMindNode(head,tail);
+//
+//       Node leftCall = mergeSort(head,mid);
+//       Node rightCall = mergeSort(mid.next,tail);
+//
+//    }
+
+    private Node findMindNode(Node head,Node tail){
+        Node slow = head;
+        Node fast = head;
+
+        if (head == null || head.next == null) {
+            throw new IllegalStateException("List is empty or has only one element");
+        }
+
+        while(fast != tail && fast.next!=tail){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+        private Node oddEvenListIndex(Node head) {
+
+            if (head == null || head.next == null){
+                return head;
+            }
+
+
+            Node evenHead = head.next;
+            Node oddHead = head;
+
+            Node currentOdd = oddHead ;
+            Node currentEven = evenHead;
+
+
+
+            while(currentEven!=null && currentEven.next!=null){
+                currentOdd.next = currentEven.next;
+                currentOdd = currentOdd.next;
+                currentEven.next = currentOdd.next;
+                currentEven = currentEven.next;
+            }
+
+            currentOdd.next = evenHead;
+
+            return oddHead;
+
+        }
+
+
+
+    public void oddEvenListIndex(){
+            this.head = oddEvenListIndex(this.head);
+        }
+
 
 }
