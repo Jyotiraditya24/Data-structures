@@ -1,5 +1,6 @@
 package LinkedList;
 
+
 public class Main {
     public static void main(String[] args) {
         LL list = new LL();
@@ -17,8 +18,7 @@ public class Main {
 
 //        System.out.println(list.kElementFromEnd(0));
 //        System.out.println(list.middleOfLinkedList());
-        list.oddEvenListIndex();
+        list.reverseLinkedListRecursively();
         list.print();
-
     }
 }

@@ -124,15 +124,18 @@ public class LL {
         if (head == null || head.next == null) {
             return;
         }
+
         Node prev = null;
         Node current = head;
         Node next;
+
         while (current != null) {
             next = current.next;
             current.next = prev;
             prev = current;
             current = next;
         }
+
         tail = head;
         head = prev;
     }
@@ -276,10 +279,28 @@ public class LL {
         }
 
 
-
     public void oddEvenListIndex(){
             this.head = oddEvenListIndex(this.head);
-        }
+    }
+
+    public void reverseLinkedListRecursively(){
+        reverseLinkedListRecursively(this.head);
+        head.next = null;
+        Node temp = head;
+        head = tail;
+        tail = temp;
+    }
+
+    private void reverseLinkedListRecursively(Node node){
+       if(node == null || node.next==null){
+           return;
+       }
+
+       reverseLinkedListRecursively(node.next);
+       node.next.next = node;
+    }
+
+    public void reverseUsingData
 
 
 }
