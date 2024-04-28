@@ -1,5 +1,7 @@
 package LinkedList;
 
+import java.util.Arrays;
+
 public class LL {
     private Node head;
     private Node tail;
@@ -300,7 +302,60 @@ public class LL {
        node.next.next = node;
     }
 
-    public void reverseUsingData
+    public void reverseUsingData(){
+        leftPointer = head;
+        reverseUsingData(this.head,0);
+    }
+
+    Node leftPointer;
+
+    private void reverseUsingData(Node right,int floor){
+        if(right == null){
+            return;
+        }
+        reverseUsingData(right.next,floor+1);
+//        RIGHT POINTER
+
+        if(floor >= this.size/2){
+            int temp = right.data;
+            right.data = leftPointer.data;
+            leftPointer.data = temp;
+        }
+        leftPointer = leftPointer.next;
+    }
+
+    public void experiment(){
+//       int[]arr = {1,2,3};
+//       int[]b = arr;
+//        arr[0] = 10;
+//        System.out.println(Arrays.toString(b));
+//        System.out.println(Arrays.toString(arr));
+//
+//        Node temp  = head;
+//        head = head.next;
+//        System.out.println(temp.data);
+//        System.out.println(head.data);
+//        Node b = new Node(10);
+//        Node c = new Node(20);
+//        Node d = new Node(30);
+//
+//        d.next = c;
+//        b.next = d;
+//        c.next  = d;
+//
+//        c.next =null;
+//        System.out.println(b.next.data);
+//
+//        Node temp = b;
+//        while (temp!=null){
+//            System.out.println(temp.data);
+//            temp = temp.next;
+//        }
+
+    }
+
+
+
 
 
 }

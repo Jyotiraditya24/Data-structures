@@ -18,7 +18,9 @@ public class Main {
 
 //        System.out.println(list.kElementFromEnd(0));
 //        System.out.println(list.middleOfLinkedList());
-        list.reverseLinkedListRecursively();
-        list.print();
+//        list.reverseLinkedListRecursively();
+//        list.experiment();
+//        list.print();
+
     }
 }
