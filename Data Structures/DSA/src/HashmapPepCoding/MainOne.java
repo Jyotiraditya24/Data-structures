@@ -31,7 +31,30 @@ public class MainOne {
         }
         System.out.println(map);
 
-    }
+        System.out.println( highestFrequencyChar("aavvvvccc"));
 
+    }
+    public static char  highestFrequencyChar(String str) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int maxValue = 0;
+        char maxChar = '_';
+        for (Character ch : str.toCharArray()) {
+            if (map.containsKey(ch)) {
+                int currentVal = map.get(ch);
+                map.put(ch, currentVal + 1);
+//    map.compute(ch, (k, v) -> (v == null) ? 1 : v + 1);
+            } else {
+                map.put(ch, 1);
+            }
+        }
+        for (Character key : map.keySet()) {
+            int val = map.get(key);
+            if (val > maxValue) {
+                maxValue = val;
+                maxChar = key;
+            }
+        }
+        return maxChar;
+    }
 
 }
