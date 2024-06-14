@@ -30,8 +30,11 @@ public class MainOne {
             map.put(key,valueOfEachKey);
         }
         System.out.println(map);
-
         System.out.println( highestFrequencyChar("aavvvvccc"));
+
+        int[]arr1 = {1,1,2,2,2,3,5};
+        int[]arr2 = {1,1,1,2,2,4,5};
+        getCommonElement1(arr1,arr2);
 
     }
     public static char  highestFrequencyChar(String str) {
@@ -56,5 +59,26 @@ public class MainOne {
         }
         return maxChar;
     }
+
+    public static void getCommonElement1(int[]arr1, int[]arr2){
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int v : arr1){
+           map.compute(v, (key ,val) -> (val == null)?1 : v+1);
+        }
+        System.out.println(map);
+
+        for(int v : arr2){
+           if(map.containsKey(v)){
+               System.out.print(v);
+               map.remove(v);
+           }
+        }
+    }
+
+    public static void getCommonElement2(int[]arr1,int[]arr2){
+
+    }
+
 
 }
