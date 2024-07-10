@@ -1,8 +1,13 @@
-import java.util.ArrayList;
+import  java.util.HashMap;
 
 public class Experiment {
     public static void main(String[] args) {
-        ArrayList<String>list = new ArrayList<>();
+
+    }
+}
+class Solution {
+    public void moveZeroes(int[] nums) {
+        HashMap<Integer,Integer> map = new HashMap<>();
 
     }
 }
